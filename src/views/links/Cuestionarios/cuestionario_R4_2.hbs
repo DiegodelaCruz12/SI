@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/382f2f134c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Cuestionario</title>
+</head>
+<body>
+    <div class="start_btn"><button>Iniciar</button></div>
+
+    <div class="info_box">
+        <div class="info_title">
+            <span>Reglas del Cuestionario</span>
+        </div>
+        <div class="info_list">
+            <div class="info">1. Solo tienes <span>10 segundos</span> para contestar cada pregunta.</div>
+            <div class="info">2. Una vez elegida tu respuesta, no puedes cambiarla.</div>
+            <div class="info">3. No puedes elegir ninguna opción una vez que el tiempo se termine.</div>
+            <div class="info">4. No puedes salir del cuestionario mientras lo estás realizando.</div>
+            <div class="info">5. Obtendras puntos dependiendo de las respuestas correctas.</div>
+        </div>
+        <div class="buttons">
+            <button class="quit">Salir</button>
+            <button class="restart">Continuar</button>
+        </div>
+    </div>
+
+    <div class="quiz_box">
+        <header>
+            <div class="title">Diagramas de Flujo</div>
+            <div class="timer">
+                <div class="time_text">Tiempo Restante</div>
+                <div class="timer_sec">10</div>
+                <div class="time_line"></div>
+            </div>
+        </header>
+        <section>
+            <div class="que_text">
+               <!-- <span>Pregunta 1</span> -->
+            </div>
+            <div class="option_list">
+                <!-- <div class="option">
+                    <span>Opción 1</span>
+                    <div class="icon tick"><i class="fas fa-check"></i></div>
+                </div>
+                <div class="option">
+                    <span>Opción 2</span>
+                    <div class="icon cross"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="option">
+                    <span>Opción 3</span>
+                </div>
+                <div class="option">
+                    <span>Opción 4</span>
+                </div> -->
+            </div>
+        </section>
+
+        <footer>
+            <div class="total_que">
+                <!-- <span><p>2</p><p>de</p><p>10</p>puntos</span> -->
+            </div>
+            <button class="next_btn">Siguiente</button>
+        </footer>
+    </div>
+
+    <div class="result_box">
+        <div class="icon">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="complete_text">¡Cuestionario Completado!</div>
+        <div class="score_text">
+            <span>Lo siento, solo obtuviste <p>2</p> de <p>5</p></span>
+        </div>
+        <div class="buttons">
+            <button class="quit">Salir</button>
+        </div>
+    </div>
+    <script src="/js/script3.js"></script>
+    <script src="/js/preguntas7.js"></script>
+</body>
+</html>
