@@ -4,7 +4,6 @@
   "description": "",
   "main": "js.js",
   "scripts": {
-    "dev":"nodemon src/index.js",
     "start": "src/index.js"
   },
   "keywords": [],
