@@ -10,6 +10,9 @@
 body{
     background: #007bff;
 }
+#content{
+    background: #007bff;
+}
 
 .start_btn,
 .info_box,
