@@ -28,7 +28,6 @@ const user="hola";
 //Routes
 app.use(require('./routes/profesor'));
 app.use(require('./routes/usuarios'));
-
 app.use(require('./routes/cuestionarios'));
 
 
