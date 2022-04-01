@@ -1,0 +1,45 @@
+<div class="container">
+            <div class="row justify-content-md-center py-sm-2 w=90 border-bottom " >                
+                <div class="col-md-auto justify-content-center" id="centrados">
+                   
+                   <a href="/profesor/crearcuestionario" class=""  >
+                   <div class="card text-white bg-success mb-3" id="btnagregarusuario" >
+                        <div class="card-body">
+                    AGREGAR CUESTIONARIO   
+                        </div>
+                    </div>
+                    </a>                                              
+                    </div>
+                </div>
+                    <div class="row">
+        {{#each cuestionarios}}
+            
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="padding: 10px;">
+                <div class="card">
+                <div class="card-header">
+                    <div class="float-right">
+                        <a href="eliminar/{{id_cuestionarios}}">
+                    <button type="button"  class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i>
+                    </button>
+                    </a>
+                    </div>
+                </div>
+                    <div class="card-body text center">
+                        <div class="">
+                    <h3>{{nombre_cuestionario}}</h3>
+                </div>
+                
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            {{else}}
+                <div class="col-md-4 mx-auto">
+                    <card class="card card-body text-center">
+                        <p>No cuestionarios echos aun</p>
+                    </card>
+                </div>
+        {{/each}}                
+                                        </div>

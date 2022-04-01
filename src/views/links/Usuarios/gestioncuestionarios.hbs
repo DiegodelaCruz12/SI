@@ -1,0 +1,39 @@
+<div class="container" style="padding: 50px;">
+             <div class="row justify-content-md-center py-sm-2 w=90 border-bottom " style="padding: 10px;text-align:center" >                
+                <div class="col-md-auto justify-content-center" >
+                   
+                    INICIAR CUESTIONARIO   
+                   
+                                                                 
+                    </div>
+                </div>
+        {{#each cuestionarios}}
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="padding: 10px;">
+                <div class="card"  >
+                <div class="card-header">
+                    <div class="float-right">
+                        <a href="iniciar/{{id_cuestionarios}}">
+                    <button type="button"  class="btn btn-success">
+                    <i class="fa-solid fa-play"></i>
+                    </button>
+                    </a>
+                    </div>
+                </div>
+                    <div class="card-body text center">
+                        <div class="">
+                    <h3>{{nombre_cuestionario}}</h3>
+                </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            {{else}}
+                <div class="col-md-4 mx-auto">
+                    <card class="card card-body text-center">
+                        <p>No cuestionarios echos aun</p>
+                    </card>
+                </div>
+        {{/each}}                
+                                        </div>
+                                        </div>
