@@ -6,7 +6,7 @@ const path=require('path');
 //initializations
 const app=express();
  //settings
- app.set('port', process.env.PORT||4050);
+ app.set('port', process.env.PORT||4070);
  app.set('views',path.join(__dirname, 'views' ));
  app.engine('.hbs', exphbs({
      defaultLayout:'main',
@@ -22,13 +22,12 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
 //Global Variables
-const user="hola";
+const user="";
 
 
 //Routes
-app.use(require('./routes/profesor'));
-app.use(require('./routes/usuarios'));
-app.use(require('./routes/cuestionarios'));
+app.use('/Profesor',require('./routes/profesor'));
+app.use('/Usuario',require('./routes/usuarios'));
 
 
 //Public
