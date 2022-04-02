@@ -25,7 +25,7 @@ router.get('/respondercuestionario/:id_cuestionario',async(req,res)=>{
     console.log(id_cuestionario)
     const preguntas=await pool.query('SELECT * FROM preguntas WHERE id_cuestionarios=?',[id_cuestionario])
     console.log(preguntas)
-    res.render('links/Usuarios/respondercuestionario',{preguntas})
+    res.render('links/Profesor/gestioncuestionarios',{preguntas})
 });
 //RECIVIR LA CALIICACION
 router.post('/respondercuestionario',async(req,res)=>{
