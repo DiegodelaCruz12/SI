@@ -98,7 +98,7 @@ router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
     id_cuestionarios=req.params.id_cuestionarios;
     console.log(id_cuestionarios)
     await pool.query('DELETE FROM cuestionarios_profesores WHERE id_cuestionarios=?',[id_cuestionarios])
-    res.redirect('/profesor/gestioncuestionarios');
+    res.redirect('links/profesor/gestioncuestionarios');
 
 })
 

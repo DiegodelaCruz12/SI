@@ -28,7 +28,6 @@ router.get('/respondercuestionario/:id_cuestionario',async(req,res)=>{
     res.render('links/Usuarios/respondercuestionario',{preguntas})
 });
 //RECIVIR LA CALIICACION
-
 router.post('/respondercuestionario',async(req,res)=>{
         console.log(req.body)
         res.redirect('/usuario/gestioncuestionarios');
