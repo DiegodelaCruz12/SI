@@ -20,7 +20,7 @@ router.get('/gestioncuestionarios',async(req,res)=>{
     res.render('links/Usuarios/gestioncuestionarios',{cuestionarios});
 })
 //HACER LA PRUEBA
-router.get('/iniciar/:id_cuestionario',async(req,res)=>{
+router.get('/respondercuestionario/:id_cuestionario',async(req,res)=>{
     id_cuestionario=req.params.id_cuestionario;
     console.log(id_cuestionario)
     const preguntas=await pool.query('SELECT * FROM preguntas WHERE id_cuestionarios=?',[id_cuestionario])
