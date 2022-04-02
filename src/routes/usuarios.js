@@ -25,12 +25,14 @@ router.get('/iniciar/:id_cuestionario',async(req,res)=>{
     console.log(id_cuestionario)
     const preguntas=await pool.query('SELECT * FROM preguntas WHERE id_cuestionarios=?',[id_cuestionario])
     console.log(preguntas)
-    res.render('links/usuarios/respondercuestionario',{preguntas})
+    res.render('links/Usuarios/respondercuestionario',{preguntas})
 });
 //RECIVIR LA CALIICACION
 
 router.post('/respondercuestionario',async(req,res)=>{
         console.log(req.body)
         res.redirect('/usuario/gestioncuestionarios');
+        //Tenemos que hacer que en forma de bucle vaya comparando cada respuesta hasta que acabe
+        preuntas= await pool.query('SELECT * FROM preguntas WHERE id_cuestionario')
 });
 module.exports=router;
