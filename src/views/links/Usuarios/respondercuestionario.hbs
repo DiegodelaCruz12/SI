@@ -1,5 +1,5 @@
 <div class="container" style="padding: 30px;">
-<form action="/usuario/respondercuestionario" method="POST">
+<form action="/usuario/respondercuestionario/{{preguntas.0.id_cuestionarios}}" method="POST">
 {{#each preguntas}}
 <div class="" style="max-width: 50rem;">
 <div class="card">
@@ -11,26 +11,26 @@
   </div>
   <div class="form-group row justify-content-center" style="padding-left: 30px;">
     <div class="col-sm-2 ">
-       <input class="form-check-input" type="radio" name="valor{{id_pregunta}}" id="inlineRadio1" value="option1"> 
+       <input class="form-check-input" type="radio" name="valor{{id_pregunta}}" id="inlineRadio1" value="1"> 
     </div>
     <div class="col-sm-9" style="margin-left: 10px;">{{res1}}</label></div>
     
   </div>
   <div class="form-group row justify-content-center" style="padding-left: 30px;">
     <div class="col-sm-2">
-       <input class="form-check-input" type="radio" name="valor{{id_pregunta}}" id="inlineRadio1" value="option1"> 
+       <input class="form-check-input" type="radio" name="valor{{id_pregunta}}" id="inlineRadio1" value="2"> 
     </div>
     <div class="col-sm-9" style="margin-left: 10px;">{{res2}}</div>
   </div>
   <div class="form-group row justify-content-center" style="padding-left: 30px;">
     <div class="col-sm-2">
-       <input class="form-check-input" type="radio" name="valor{{id_pregunta}}" id="inlineRadio1" value="option1"> 
+       <input class="form-check-input" type="radio" name="valor{{id_pregunta}}" id="inlineRadio1" value="3"> 
     </div>
     <div class="col-sm-9" style="margin-left: 10px;" >{{res3}}</div>
   </div>
   <div class="form-group row justify-content-center" style="padding-left: 30px;">
     <div class="col-sm-2">
-       <input class="form-check-input" type="radio" name="valor{{id_pregunta}}" id="inlineRadio1" value="option1"> 
+       <input class="form-check-input" type="radio" name="valor{{id_pregunta}}" id="inlineRadio1" value="4"> 
     </div>
     <div class="col-sm-9"  style="margin-left: 10px;">{{res4}}</div>
   </div>
