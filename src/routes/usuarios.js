@@ -32,21 +32,24 @@ router.post('/respondercuestionario/:id_cuestionario',async(req,res)=>{
     
     try{
         TAMAÑO_DE_RESPUESTAS= Object.keys(req.body).length;
-        console.log(TAMAÑO_DE_RESPUESTAS)
+        //console.log(TAMAÑO_DE_RESPUESTAS)
         id_cuestionario=req.params.id_cuestionario;
         //console.log(id_cuestionario);    
         PREGUNTAS_CORRECTAS= await pool.query('SELECT * FROM preguntas WHERE id_cuestionarios =?',[id_cuestionario])
+        
+        
         NUMERO_DE_PREGUNTAS=(PREGUNTAS_CORRECTAS.length)
         if(NUMERO_DE_PREGUNTAS==TAMAÑO_DE_RESPUESTAS){
             console.log("Entro")
-            i=0
-            console.log(req.body)
+            i=0;
             do{
+                SOLUCION_CORRECTA=Object.values(PREGUNTAS_CORRECTAS)[i].solucion
                 dato=Object.keys(req.body)[i]
-                console.log(dato)
-                console.log(Object.values(req.body)[i])
+                VALOR_DEL_DATO=Object.values(req.body)[i]
+                if(SOLUCION_CORRECTA==VALOR_DEL_DATO)
                 i++;
-                console.log(i)
+                //console.log(i)
+                //Ya tenemos el DATO y su VALOR ahora toca compararlo con la respuesta correcta de la pregunta
             }while(i<NUMERO_DE_PREGUNTAS);
             //Tenemos que hacer que en forma de bucle vaya comparando cada respuesta hasta que acabe
             res.redirect('/usuario/gestioncuestionarios');
