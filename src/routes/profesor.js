@@ -101,6 +101,16 @@ router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
     res.redirect('/profesor/gestioncuestionarios');
 
 })
+//Obtener calificaciones
+router.get('/calificaciones/:id_cuestionarios',async(req,res)=>{
+    console.log("hola")
+    id_cuestionarios=req.params.id_cuestionarios;
+    cuestionarios=await pool.query('SELECT * FROM cuestionarios WHERE id_cuestionarios=?',[id_cuestionarios])
+    res.render('links/Profesor/Calificaciones',{cuestionarios});
+
+})
+
+
 
 
 module.exports=router;

@@ -42,16 +42,36 @@ router.post('/respondercuestionario/:id_cuestionario',async(req,res)=>{
         if(NUMERO_DE_PREGUNTAS==TAMAÑO_DE_RESPUESTAS){
             console.log("Entro")
             i=0;
-            do{
+            calificacion=0
+            id_usuario=info.getid(),
+            CUESTIONARIO_CREADO={
+                id_usuario:info.getid(),
+                cuestionario_hecho:id_cuestionario
+            }
+            await pool.query('INSERT INTO cuestionarios SET ?',[CUESTIONARIO_CREADO]);
+            
+
+            const rows=await pool.query('SELECT * FROM cuestionarios WHERE id_usuario=?',[id_usuario])
+            TAMAÑO_DE_ROWS=rows.length
+            rows_correcta=JSON.stringify(rows[TAMAÑO_DE_ROWS-1].id_cuestionarios);
+            id_cuestionarios=rows_correcta;
+           do{
+                
                 SOLUCION_CORRECTA=Object.values(PREGUNTAS_CORRECTAS)[i].solucion
                 dato=Object.keys(req.body)[i]
                 VALOR_DEL_DATO=Object.values(req.body)[i]
-                if(SOLUCION_CORRECTA==VALOR_DEL_DATO)
+               
+               RESPUESTA_DEL_USUARIO={
+                id_cuestionarios:id_cuestionarios,
+                solucion:VALOR_DEL_DATO,
+                id_pregunta_hecha:dato
+            }
+            console.log(RESPUESTA_DEL_USUARIO)
+            //await pool.query('INSERT INTO resp_cuestionarios SET ?',[RESPUESTA_DEL_USUARIO]);
                 i++;
-                //console.log(i)
-                //Ya tenemos el DATO y su VALOR ahora toca compararlo con la respuesta correcta de la pregunta
             }while(i<NUMERO_DE_PREGUNTAS);
             //Tenemos que hacer que en forma de bucle vaya comparando cada respuesta hasta que acabe
+           
             res.redirect('/usuario/gestioncuestionarios');
         }   
         else{
