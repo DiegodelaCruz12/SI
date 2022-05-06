@@ -92,20 +92,30 @@ router.get('/gestioncuestionarios',async(req,res)=>{
 })
 
 
+Object.filter = (mainObject, filterFunction)=>
+    Object.keys(mainObject)
+          .filter( (ObjectKey)=>filterFunction(mainObject[ObjectKey]))
+          .reduce( (result, ObjectKey)=> ( result[ObjectKey] = mainObject[ObjectKey], result ), {} );
+
+
 
 //Eliminar un cuestionario
 router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
     id_cuestionarios=req.params.id_cuestionarios;
     console.log(id_cuestionarios)
     await pool.query('DELETE FROM cuestionarios_profesores WHERE id_cuestionarios=?',[id_cuestionarios])
+    
     res.redirect('/profesor/gestioncuestionarios');
 
 })
 //Obtener calificaciones
 router.get('/calificaciones/:id_cuestionarios',async(req,res)=>{
     console.log("hola")
-    id_cuestionarios=req.params.id_cuestionarios;
-    cuestionarios=await pool.query('SELECT * FROM cuestionarios WHERE id_cuestionarios=?',[id_cuestionarios])
+    id_cuestionarios_parametro=req.params.id_cuestionarios;
+    cuestionarios=await pool.query('SELECT cuestionarios.id_cuestionarios AS cuestionario, cuestionarios.id_usuario AS id_usuario,cuestionarios.cuestionario_hecho AS cuestionarios_hecho, calificaciones_cuestionarios.calificacion AS calificacion FROM cuestionarios INNER JOIN calificaciones_cuestionarios ON cuestionarios.id_cuestionarios=calificaciones_cuestionarios.id_cuestionarios')
+    var cuestionarios = Object.filter(cuestionarios, (cuestionarios_hecho)=> cuestionarios_hecho=id_cuestionarios_parametro );
+
+    //cuestionarios=await pool.query('SELECT * FROM cuestionarios WHERE id_cuestionarios=?',[id_cuestionarios])
     res.render('links/Profesor/Calificaciones',{cuestionarios});
 
 })

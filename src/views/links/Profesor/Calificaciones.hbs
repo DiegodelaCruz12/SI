@@ -1,0 +1,23 @@
+<div class="container" style="padding: 50px;">
+             <div class="row justify-content-md-center py-sm-2 w=90 border-bottom " style="padding: 10px;text-align:center" >                
+                <div class="col-md-auto justify-content-center" >
+                   
+                    INICIAR CUESTIONARIO   
+                   
+                                                                 
+                    </div>
+                </div>
+        {{#each cuestionarios}}
+            <div class="col-md-1"></div>
+            <div class="col-md-8" style="padding: 10px;" overflow="auto">{{id_usuario}}</div>
+            <div class="col-md-2" style="padding: 10px;" overflow="auto">{{}}</div>                                    
+            <div class="col-md-1"></div>
+            {{else}}
+                <div class="col-md-4 mx-auto">
+                    <card class="card card-body text-center">
+                        <p>cuestionario aun no echo por nadie</p>
+                    </card>
+                </div>
+        {{/each}}                
+                                        </div>
+                                        </div>
