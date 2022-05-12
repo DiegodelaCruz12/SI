@@ -110,14 +110,10 @@ router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
 })
 //Obtener calificaciones
 router.get('/calificaciones/:id_cuestionarios',async(req,res)=>{
-    console.log("hola")
     id_cuestionarios_parametro=req.params.id_cuestionarios;
-    cuestionarios=await pool.query('SELECT cuestionarios.id_cuestionarios AS cuestionario, cuestionarios.id_usuario AS id_usuario,cuestionarios.cuestionario_hecho AS cuestionarios_hecho, calificaciones_cuestionarios.calificacion AS calificacion FROM cuestionarios INNER JOIN calificaciones_cuestionarios ON cuestionarios.id_cuestionarios=calificaciones_cuestionarios.id_cuestionarios')
-    var cuestionarios = Object.filter(cuestionarios, (cuestionarios_hecho)=> cuestionarios_hecho=id_cuestionarios_parametro );
-
-    //cuestionarios=await pool.query('SELECT * FROM cuestionarios WHERE id_cuestionarios=?',[id_cuestionarios])
-    res.render('links/Profesor/Calificaciones',{cuestionarios});
-
+    cuestionarios=await pool.query('SELECT * FROM cuestionarios INNER JOIN calificaciones_cuestionarios ON cuestionarios.id_cuestionarios=calificaciones_cuestionarios.id_cuestionarios WHERE cuestionarios.cuestionario_hecho=?',[id_cuestionarios_parametro])
+    console.log(cuestionarios)
+    //res.render('links/Profesor/Calificaciones',{cuestionarios});
 })
 
 

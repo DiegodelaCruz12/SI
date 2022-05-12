@@ -34,6 +34,7 @@ router.post('/respondercuestionario/:id_cuestionario',async(req,res)=>{
         TAMAÑO_DE_RESPUESTAS= Object.keys(req.body).length;
         //console.log(TAMAÑO_DE_RESPUESTAS)
         id_cuestionario=req.params.id_cuestionario;
+        id_cuestionario_hecho=req.params.id_cuestionario;
         //console.log(id_cuestionario);    
         PREGUNTAS_CORRECTAS= await pool.query('SELECT * FROM preguntas WHERE id_cuestionarios =?',[id_cuestionario])
         
@@ -42,14 +43,15 @@ router.post('/respondercuestionario/:id_cuestionario',async(req,res)=>{
         if(NUMERO_DE_PREGUNTAS==TAMAÑO_DE_RESPUESTAS){
             console.log("Entro")
             i=0;
+            Contestadas_correctamente=0;
+            calificacion_final=0;
             calificacion=0
             id_usuario=info.getid(),
             CUESTIONARIO_CREADO={
                 id_usuario:info.getid(),
-                cuestionario_hecho:id_cuestionario
+                cuestionario_hecho:id_cuestionario_hecho
             }
             await pool.query('INSERT INTO cuestionarios SET ?',[CUESTIONARIO_CREADO]);
-            Preguntas_correctas= await pool.query('SELECT * FROM ')
 
             const rows=await pool.query('SELECT * FROM cuestionarios WHERE id_usuario=?',[id_usuario])
             TAMAÑO_DE_ROWS=rows.length
@@ -66,15 +68,24 @@ router.post('/respondercuestionario/:id_cuestionario',async(req,res)=>{
                 solucion:VALOR_DEL_DATO,
                 id_pregunta_hecha:dato
             }
+            console.log("Aqui va")
+            if(SOLUCION_CORRECTA==VALOR_DEL_DATO){
+                Contestadas_correctamente=Contestadas_correctamente+1;
 
-            //Realizamos la comparacion de pregunta con la pregunta correcta
-
+            }
+            
             console.log(RESPUESTA_DEL_USUARIO)
             await pool.query('INSERT INTO resp_cuestionarios SET ?',[RESPUESTA_DEL_USUARIO]);
                 i++;
             }while(i<NUMERO_DE_PREGUNTAS);
             //Tenemos que hacer que en forma de bucle vaya comparando cada respuesta hasta que acabe
+            calificacion_final=(Contestadas_correctamente/NUMERO_DE_PREGUNTAS)
             
+            calificaciones_cuestionarios={
+                id_cuestionarios:id_cuestionarios,
+                calificacion:calificacion_final
+            }
+            await pool.query('INSERT INTO calificaciones_cuestionarios SET ?',[calificaciones_cuestionarios])
             res.redirect('/usuario/gestioncuestionarios');
         }   
         else{
