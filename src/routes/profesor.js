@@ -111,13 +111,23 @@ router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
 //Obtener calificaciones
 router.get('/calificaciones/:id_cuestionarios',async(req,res)=>{
     id_cuestionarios_parametro=req.params.id_cuestionarios;
-    cuestionarios=await pool.query('SELECT usuarios.id_usuario,usuarios.usuario,cuestionarios.id_usuario,calificaciones_cuestionarios.calificacion FROM cuestionarios INNER JOIN calificaciones_cuestionarios ON cuestionarios.id_cuestionarios=calificaciones_cuestionarios.id_cuestionarios INNER JOIN usuarios ON usuarios.id_usuario=cuestionarios.id_usuario WHERE cuestionarios.cuestionario_hecho=?',[id_cuestionarios_parametro])
-    //usuarios.id_usuario,usuarios.usuario,
-    //cuestionarios.id_usuario,
-    //calificaciones_cuestionarios.calificacion
+    cuestionarios=await pool.query('SELECT cuestionarios.id_cuestionarios,usuarios.id_usuario,usuarios.usuario,cuestionarios.id_usuario,calificaciones_cuestionarios.calificacion FROM cuestionarios INNER JOIN calificaciones_cuestionarios ON cuestionarios.id_cuestionarios=calificaciones_cuestionarios.id_cuestionarios INNER JOIN usuarios ON usuarios.id_usuario=cuestionarios.id_usuario WHERE cuestionarios.cuestionario_hecho=?',[id_cuestionarios_parametro])
     console.log(cuestionarios)
     res.render('links/Profesor/Calificaciones',{cuestionarios});
 })
+//Obtener el examen resuelto
+router.get('/ver_examen/:id_cuestionarios',async(req,res)=>{
+    id_cuestionarios_parametro=req.params.id_cuestionarios;
+    const cuestionarios_realizado_usuario=await pool.query('SELECT * FROM cuestionarios WHERE id_cuestionarios=?',[id_cuestionarios_parametro])
+     const cuestionario_hecho=cuestionarios_realizado_usuario[0].cuestionario_hecho
+     const preguntas=await pool.query('SELECT preguntas.id_pregunta, preguntas.descripcion,preguntas.res1,preguntas.res2,preguntas.res3,preguntas.res4,preguntas.solucion,resp_cuestionarios.solucion FROM preguntas INNER JOIN resp_cuestionarios ON resp_cuestionarios.id_pregunta_hecha=preguntas.id_pregunta INNER JOIN cuestionarios_profesores ON preguntas.id_cuestionarios=cuestionarios_profesores.id_cuestionarios WHERE cuestionarios_profesores.id_cuestionarios=?',[cuestionario_hecho])
+    //
+     //preguntas.id_pregunta, preguntas.descripcion,preguntas.res1,
+    //preguntas.res2,preguntas.res3,preguntas.res4,preguntas.solucion,
+    //resp_cuestionarios.solucion
+    console.log(preguntas)
+    res.render('links/Profesor/VerExamen',{preguntas});
+    })
 
 
 
