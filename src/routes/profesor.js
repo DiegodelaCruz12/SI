@@ -1,9 +1,9 @@
 const express=require('express');
-
 const pool=require('../database');
 const router=express.Router();
 const path=require('path');
 const { globalAgent } = require('http');
+
 
 let info={
     nombre:'',
@@ -92,13 +92,6 @@ router.get('/gestioncuestionarios',async(req,res)=>{
 })
 
 
-Object.filter = (mainObject, filterFunction)=>
-    Object.keys(mainObject)
-          .filter( (ObjectKey)=>filterFunction(mainObject[ObjectKey]))
-          .reduce( (result, ObjectKey)=> ( result[ObjectKey] = mainObject[ObjectKey], result ), {} );
-
-
-
 //Eliminar un cuestionario
 router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
     id_cuestionarios=req.params.id_cuestionarios;
@@ -112,19 +105,36 @@ router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
 router.get('/calificaciones/:id_cuestionarios',async(req,res)=>{
     id_cuestionarios_parametro=req.params.id_cuestionarios;
     cuestionarios=await pool.query('SELECT cuestionarios.id_cuestionarios,usuarios.id_usuario,usuarios.usuario,cuestionarios.id_usuario,calificaciones_cuestionarios.calificacion FROM cuestionarios INNER JOIN calificaciones_cuestionarios ON cuestionarios.id_cuestionarios=calificaciones_cuestionarios.id_cuestionarios INNER JOIN usuarios ON usuarios.id_usuario=cuestionarios.id_usuario WHERE cuestionarios.cuestionario_hecho=?',[id_cuestionarios_parametro])
-    console.log(cuestionarios)
+    console.log(cuestionarios[0].id_cuestionarios)
     res.render('links/Profesor/Calificaciones',{cuestionarios});
 })
 //Obtener el examen resuelto
 router.get('/ver_examen/:id_cuestionarios',async(req,res)=>{
+    //Buscamos el cuestionario que realizo el alumno
     id_cuestionarios_parametro=req.params.id_cuestionarios;
-    const cuestionarios_realizado_usuario=await pool.query('SELECT * FROM cuestionarios WHERE id_cuestionarios=?',[id_cuestionarios_parametro])
-     const cuestionario_hecho=cuestionarios_realizado_usuario[0].cuestionario_hecho
-     const preguntas=await pool.query('SELECT preguntas.id_pregunta, preguntas.descripcion,preguntas.res1,preguntas.res2,preguntas.res3,preguntas.res4,preguntas.solucion,resp_cuestionarios.solucion FROM preguntas INNER JOIN resp_cuestionarios ON resp_cuestionarios.id_pregunta_hecha=preguntas.id_pregunta INNER JOIN cuestionarios_profesores ON preguntas.id_cuestionarios=cuestionarios_profesores.id_cuestionarios WHERE cuestionarios_profesores.id_cuestionarios=?',[cuestionario_hecho])
-    //
-     //preguntas.id_pregunta, preguntas.descripcion,preguntas.res1,
-    //preguntas.res2,preguntas.res3,preguntas.res4,preguntas.solucion,
-    //resp_cuestionarios.solucion
+/*          -----------CONFIGURACION DE LA PETICION------------
+VARIABLES QUE TOMAREMOS
+    preguntas.id_pregunta, preguntas.descripcion,preguntas.res1,
+    preguntas.res2,preguntas.res3,preguntas.res4,preguntas.solucion,
+    resp_cuestionarios.solucion, resp_cuestionarios.id_pregunta_hecha
+    PETICION COMPLETA
+(Se colocan los datos a pedir)      SELECT resp_cuestionarios.id_pregunta_hecha, preguntas.id_pregunta, 
+                                    preguntas.descripcion,preguntas.res1,preguntas.res2,preguntas.res3,
+                                    preguntas.res4,preguntas.solucion,resp_cuestionarios.solucion AS solucion_usuario 
+(FROM cuestionarios ya que sera     FROM cuestionarios 
+nuestra tabla principal si se elije 
+otra puede que los datos lleguen a repetirse 
+muchas veces por error en el INNER JOIN)
+                                    
+(Conectamos las tablas con sus      INNER JOIN resp_cuestionarios ON cuestionarios.id_cuestionarios=resp_cuestionarios.id_cuestionarios
+    respectivas datos)              INNER JOIN preguntas ON preguntas.id_pregunta=resp_cuestionarios.id_pregunta_hecha                               
+                                    
+                                    WHERE cuestionarios.id_cuestionarios=?      
+   */
+
+     const preguntas=await pool.query('SELECT resp_cuestionarios.id_pregunta_hecha, preguntas.id_pregunta, preguntas.descripcion,preguntas.res1,preguntas.res2,preguntas.res3,preguntas.res4,preguntas.solucion,resp_cuestionarios.solucion AS solucion_usuario FROM cuestionarios INNER JOIN resp_cuestionarios ON cuestionarios.id_cuestionarios=resp_cuestionarios.id_cuestionarios INNER JOIN preguntas ON preguntas.id_pregunta=resp_cuestionarios.id_pregunta_hecha WHERE cuestionarios.id_cuestionarios=?',[id_cuestionarios_parametro])
+
+
     console.log(preguntas)
     res.render('links/Profesor/VerExamen',{preguntas});
     })
