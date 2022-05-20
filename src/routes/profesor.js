@@ -4,7 +4,61 @@ const router=express.Router();
 const path=require('path');
 const { globalAgent } = require('http');
 
+const expresiones={
+    texto: /[A-Za-z0-9¿¡."][A-Za-z0-9!?\?."]{4,130}$/
+}
+const campos = {
+	usuario: false,
+	password: false,
+	nombre: false,
+    email:false
+}
 
+const validarFormulario=(dato,valor)=>{
+
+    switch (valor){
+        case "usuario":
+            valor="usuario";
+            
+            Validar(expresiones.usuario , dato , valor )
+
+          break;
+        case "password":
+            valor="password";
+            Validar(expresiones.contraseña , dato , valor )
+            
+        break;
+        case "nombre":
+            valor="nombre";
+            Validar(expresiones.nombre , dato , valor )
+        break;
+        case "apellido_materno":
+            valor="apellido_materno";
+            Validar(expresiones.nombre , dato , valor )
+        break;
+        case "apellido_paterno":
+            valor="apellido_paterno";
+            Validar(expresiones.nombre, dato , valor )
+        break;
+        case "Email1":
+            valor="email"
+            Validar(expresiones.email , dato , valor )
+        break;
+        
+    }
+} 
+
+
+const Validar=(expresiones, dato, valor)=>{
+    console.log(valor)
+    if(expresiones.test(dato)){
+        campos[valor]=true
+
+    }else{
+        campos[valor]=false;
+
+      }
+    }
 let info={
     nombre:'',
     id:25,
@@ -71,6 +125,7 @@ router.post('/crearcuestionario',async(req,res)=>{
                 res3:req.body.res3[i],
                 res4:req.body.res4[i],
                 solucion:req.body.respuestacorrecta[i]
+                
             };
             i++;
             //console.log(PREGUNTA_GUARDADA);

@@ -4,7 +4,7 @@
     CREAR CUESTIONARIO
 </div>
 <div class="mx-auto py-xl-8">
-<form action="/profesor/crearcuestionario"  class="formulario" method="POST" id="formulario">
+<form action="/profesor/crearcuestionario"  class="formulario" method="POST" id="formulario" onsubmit="return validateForm()">
 <div class="col-auto  " >
       <input type="text" name="nombre_cuestionario" class="form-control rounded  border-5"  placeholder="TITULO DE EL CUESTIONARIO " id="nombre_cuestionario">
     </div>

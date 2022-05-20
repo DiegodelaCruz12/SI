@@ -48,15 +48,16 @@ const validarFormulario=(e)=>{
         
     }
 } 
-const ReconocerGrupo=(e)=>{
-    
-}
 
 inputs.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
 });
-formulario.addEventListener('submit', (e) => {
-    console.log("hola")
-	e.preventDefault();
-})
+function validateForm(){
+    if(campos.usuario && campos.nombre && campos.apellido_materno && campos.apellido_paterno && campos.email){
+        console.log("error")
+        return true;
+}else{
+    return false
+}
+}
