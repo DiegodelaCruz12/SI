@@ -22,6 +22,7 @@ const router=express.Router();
 //OBTENER TODOS LOS CUESTIONARIOS QUE PUEDA HACER EL USUARIO
 router.get('/gestioncuestionarios',async(req,res)=>{
     info.setid(req.query.usuid)
+    console.log(info.getid)
     id_profe=info.getid()
     cuestionarios=await pool.query('SELECT * FROM cuestionarios_profesores' )
     res.render('links/Usuarios/gestioncuestionarios',{cuestionarios});
