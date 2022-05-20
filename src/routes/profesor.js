@@ -13,6 +13,12 @@ let info={
     },
     getid:function(){
         return this.id
+    },
+    setnombre: function(nombre){
+        this.nombre=nombre;
+    },
+    getnombre:function(){
+        return this.nombre;
     }
 }
 //Crear Cuestionario
@@ -85,7 +91,8 @@ router.post('/crearcuestionario',async(req,res)=>{
 })
 //Abrir la seccion de gestion cuestionarios
 router.get('/gestioncuestionarios',async(req,res)=>{
-
+    info.setid(req.query.profesor)
+    console.log(info.getid())
     id_profe=info.getid()
     cuestionarios=await pool.query('SELECT * FROM cuestionarios_profesores WHERE id_usuario=?',[id_profe])
     res.render('links/Profesor/gestioncuestionarios',{cuestionarios});
@@ -105,7 +112,6 @@ router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
 router.get('/calificaciones/:id_cuestionarios',async(req,res)=>{
     id_cuestionarios_parametro=req.params.id_cuestionarios;
     cuestionarios=await pool.query('SELECT cuestionarios.id_cuestionarios,usuarios.id_usuario,usuarios.usuario,cuestionarios.id_usuario,calificaciones_cuestionarios.calificacion FROM cuestionarios INNER JOIN calificaciones_cuestionarios ON cuestionarios.id_cuestionarios=calificaciones_cuestionarios.id_cuestionarios INNER JOIN usuarios ON usuarios.id_usuario=cuestionarios.id_usuario WHERE cuestionarios.cuestionario_hecho=?',[id_cuestionarios_parametro])
-    console.log(cuestionarios[0].id_cuestionarios)
     res.render('links/Profesor/Calificaciones',{cuestionarios});
 })
 //Obtener el examen resuelto

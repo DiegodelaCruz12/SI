@@ -4,9 +4,9 @@
     CREAR CUESTIONARIO
 </div>
 <div class="mx-auto py-xl-8">
-<form action="/profesor/crearcuestionario" method="POST">
-<div class="col-auto p-2 ">
-      <input type="text" name="nombre_cuestionario" class="form-control"  placeholder="TITULO DE EL CUESTIONARIO ">
+<form action="/profesor/crearcuestionario" method="POST" id="formulario">
+<div class="col-auto  " >
+      <input type="text" name="nombre_cuestionario" class="form-control rounded  border-5"  placeholder="TITULO DE EL CUESTIONARIO " id="nombre_cuestionario">
     </div>
 
 <div class="agregarpregunta p-2" id="agregarpregunta">
@@ -15,7 +15,7 @@
 
 
 <div class="form-group p-2">
-<button class="btn btn-success btn-block">
+<button type="submit" class="btn btn-success btn-block">
          Finalizar
 </button>
 

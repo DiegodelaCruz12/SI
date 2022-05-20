@@ -2,19 +2,26 @@ const express=require('express');
 let info={
     nombre:'',
     id:55,
-    setid: function(id){
-        this.id=id;
-    },
-    getid:function(){
-        return this.id
+        setid: function(id){
+            this.id=id;
+        },
+        getid:function(){
+            return this.id
+        },
+        setnombre: function(nombre){
+            this.nombre=nombre;
+        },
+        getnombre:function(){
+            return this.nombre;
+        }
     }
-}
 const pool=require('../database');
 const router=express.Router();
 
 
 //OBTENER TODOS LOS CUESTIONARIOS QUE PUEDA HACER EL USUARIO
 router.get('/gestioncuestionarios',async(req,res)=>{
+    
     id_profe=info.getid()
     cuestionarios=await pool.query('SELECT * FROM cuestionarios_profesores' )
     res.render('links/Usuarios/gestioncuestionarios',{cuestionarios});
