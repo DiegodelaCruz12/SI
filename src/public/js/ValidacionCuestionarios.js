@@ -57,5 +57,6 @@ inputs.forEach((input) => {
 	input.addEventListener('blur', validarFormulario);
 });
 formulario.addEventListener('submit', (e) => {
+    console.log("hola")
 	e.preventDefault();
 })
