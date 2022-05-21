@@ -1,14 +1,13 @@
 const express= require('express');
 const morgan=require('morgan');
-let Handlebars=require('Handlebars')
-const exphbs=require('express-handlebars');
-const path=require('path');
+const path = require('path');
+const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 
 //initializations
 const app=express();
  //settings
-
- app.set('port', process.env.PORT||4070);
+ app.set('port', process.env.PORT||4090);
  app.set('views',path.join(__dirname, 'views' ));
  app.engine('.hbs', exphbs({
      defaultLayout:'main',
@@ -38,15 +37,17 @@ const app=express();
          }
     } 
  }));
+ app.set('view engine','.hbs');
 
  //Middlewares
-app.use(morgan('dev'));
-app.set('view engine','.hbs');
-app.use(express.urlencoded({extended:false}));
-app.use(express.json());
+ 
+ app.use(morgan('dev'));
+ app.use(bodyParser.urlencoded({extended: false}));
+ app.use(bodyParser.json());
 
 //Global Variables
-const user="";
+const user="hola";
+
 
 
 
