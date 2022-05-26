@@ -3,7 +3,7 @@ function activar(){
     let div = document.getElementById("agregarpregunta");
     id=1+id;
     div.innerHTML +=`
-    <div class="card" id="${id}" style="max-width: 50rem;">
+    <div class="card" id="${id}" style="max-width: 100%; min-width:100%;">
   <div class="card-header">Pregunta
   <div class="float-right">
   <button type="button" onclick="Delete(${id})" class="btn btn-danger">

@@ -94,7 +94,9 @@ router.post('/respondercuestionario/:id_cuestionario',async(req,res)=>{
                 calificacion:calificacion_final
             }
             await pool.query('INSERT INTO calificaciones_cuestionarios SET ?',[calificaciones_cuestionarios])
-            res.redirect('/usuario/gestioncuestionarios');
+            const preguntas=await pool.query('SELECT resp_cuestionarios.id_pregunta_hecha, preguntas.id_pregunta, preguntas.descripcion,preguntas.res1,preguntas.res2,preguntas.res3,preguntas.res4,preguntas.solucion,resp_cuestionarios.solucion AS solucion_usuario FROM cuestionarios INNER JOIN resp_cuestionarios ON cuestionarios.id_cuestionarios=resp_cuestionarios.id_cuestionarios INNER JOIN preguntas ON preguntas.id_pregunta=resp_cuestionarios.id_pregunta_hecha WHERE cuestionarios.id_cuestionarios=?',[id_cuestionarios])
+            res.render('links/Usuarios/Resultado',{preguntas});
+            
         }   
         else{
             console.log("El tamañano de respuestas dadas es menor")
