@@ -90,7 +90,7 @@ router.post('/crearcuestionario',async(req,res)=>{
         console.log(tamaño)
         if(tamaño==0){
             //Mensaje de error de que solo hizo 1 pregunta
-            res.redirect('/profesor/crearcuestionario');
+            res.redirect('/profesor/gestioncuestionarios?profesor='+info.getid());
             console.log("Cuestionario de tamaño 1 pregunta")
         }
 
@@ -132,12 +132,11 @@ router.post('/crearcuestionario',async(req,res)=>{
             await pool.query('INSERT INTO preguntas SET ?',[PREGUNTA_GUARDADA]);
             console.log("GUARDO UN DATO")
             }while(i<(tamaño));
-            res.redirect('/profesor/gestioncuestionarios');
-        }
+            res.redirect('/profesor/gestioncuestionarios?profesor='+info.getid());  }
     }catch(error){
 //Mensaje de error de qe sucedio un error extra
             console.log("Sucedio un error  "+error)
-            res.redirect('/profesor/crearcuestionario');
+            res.redirect('/profesor/gestioncuestionarios?profesor='+info.getid());
 
     };
     
@@ -160,7 +159,7 @@ router.get('/eliminar/:id_cuestionarios',async(req,res)=>{
     console.log(id_cuestionarios)
     await pool.query('DELETE FROM cuestionarios_profesores WHERE id_cuestionarios=?',[id_cuestionarios])
     
-    res.redirect('/profesor/gestioncuestionarios');
+    res.redirect('/profesor/gestioncuestionarios?profesor='+info.getid());
 
 })
 //Obtener calificaciones
