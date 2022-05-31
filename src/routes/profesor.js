@@ -84,11 +84,13 @@ router.post('/crearcuestionario',async(req,res)=>{
     nombre_del_cuestionario=req.body.nombre_cuestionario
     console.log(req.body.nombre_cuestionario);
     try{
-        tamaño=(req.body.descripcion.length);
+        //Necesitamos comprobar que sea 1 objeto no leer el objeto completo
+
+        tamaño=(Object.keys(req.body.descripcion).length);
         console.log("el tamaño es"+ tamaño );
         i=0;
         console.log(tamaño)
-        if(tamaño==0){
+        if(tamaño==0 || tamaño==1){
             //Mensaje de error de que solo hizo 1 pregunta
             res.redirect('/profesor/gestioncuestionarios?profesor='+info.getid());
             console.log("Cuestionario de tamaño 1 pregunta")
@@ -117,6 +119,7 @@ router.post('/crearcuestionario',async(req,res)=>{
             rows_correcta=JSON.stringify(rows[TAMAÑO_DE_ROWS-1].id_cuestionarios);
             id_cuestionarios=rows_correcta;
             do{
+                
             PREGUNTA_GUARDADA={
                 id_cuestionarios,
                 descripcion:req.body.descripcion[i],
@@ -128,6 +131,7 @@ router.post('/crearcuestionario',async(req,res)=>{
                 
             };
             i++;
+            console.log(PREGUNTA_GUARDADA)
             //console.log(PREGUNTA_GUARDADA);
             await pool.query('INSERT INTO preguntas SET ?',[PREGUNTA_GUARDADA]);
             console.log("GUARDO UN DATO")
