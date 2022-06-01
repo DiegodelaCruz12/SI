@@ -85,16 +85,18 @@ router.post('/crearcuestionario',async(req,res)=>{
     console.log(req.body.nombre_cuestionario);
     try{
         //Necesitamos comprobar que sea 1 objeto no leer el objeto completo
-
-        tamaño=(Object.keys(req.body.descripcion).length);
+        tamaño=(Object.keys(req.body).length-1);
+        console.log(req.body.respuestacorrecta[1])
+        existe_1_sola_pregunta=req.body.respuestacorrecta[1]
         console.log("el tamaño es"+ tamaño );
         i=0;
         console.log(tamaño)
-        if(tamaño==0 || tamaño==1){
+        if(tamaño<1){
             //Mensaje de error de que solo hizo 1 pregunta
             res.redirect('/profesor/gestioncuestionarios?profesor='+info.getid());
             console.log("Cuestionario de tamaño 1 pregunta")
         }
+        
 
         else{
             //CREAMOS EL ESCENARIO
@@ -118,8 +120,22 @@ router.post('/crearcuestionario',async(req,res)=>{
             TAMAÑO_DE_ROWS=rows.length
             rows_correcta=JSON.stringify(rows[TAMAÑO_DE_ROWS-1].id_cuestionarios);
             id_cuestionarios=rows_correcta;
+            if(existe_1_sola_pregunta==null){
+                PREGUNTA_GUARDADA={
+                    id_cuestionarios,
+                    descripcion:req.body.descripcion,
+                    res1:req.body.res1,
+                    res2:req.body.res2,
+                    res3:req.body.res3,
+                    res4:req.body.res4,
+                    solucion:req.body.respuestacorrecta                    
+                };
+                console.log(PREGUNTA_GUARDADA)
+                await pool.query('INSERT INTO preguntas SET ?',[PREGUNTA_GUARDADA]);
+                res.redirect('/profesor/gestioncuestionarios?profesor='+info.getid());
+    
+            }else{
             do{
-                
             PREGUNTA_GUARDADA={
                 id_cuestionarios,
                 descripcion:req.body.descripcion[i],
@@ -137,6 +153,7 @@ router.post('/crearcuestionario',async(req,res)=>{
             console.log("GUARDO UN DATO")
             }while(i<(tamaño));
             res.redirect('/profesor/gestioncuestionarios?profesor='+info.getid());  }
+        }
     }catch(error){
 //Mensaje de error de qe sucedio un error extra
             console.log("Sucedio un error  "+error)
