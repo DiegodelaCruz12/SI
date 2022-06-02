@@ -68,14 +68,12 @@ const expresiones={
         }
     }
 const Validar=(expresiones, dato, valor)=>{
-        console.log(valor)
+
         if(expresiones.test(dato)){
             campos[valor]=true
-            console.log(campos[valor])
     
         }else{
-            campos[valor]=false;
-            console.log(campos[valor])    
+            campos[valor]=false;  
           }
         }
 let info={
@@ -180,19 +178,16 @@ router.post('/crearcuestionario',async(req,res)=>{
                     validarFormulario(req.body.res3[i],valordato="res3")
                     validarFormulario(req.body.res4[i],valordato="res4")
                     validarFormulario(req.body.respuestacorrecta[i],valordato="respuestacorrecta")
-                    const error= Object.values(campos).every(
-                        value => value === true,
-                        
-                      );
-                      console.log(errorfinal)
-                      if(error == false){
-                        errorfinal==1
+                    if(campos.descripcion && campos.res1 && campos.res2 && campos.res3 && campos.res4 && campos.respuestacorrecta){
+
+                    }else{
+                        errorfinal++;
                         console.log(errorfinal)
-                      }                    
+                    }                  
                     i++;
                     }while(i<(tamaño));
                 i=0;
-                if(errorfinal != 1){
+                if(errorfinal == 0){
                     
                     const id_usuario =info.getid(),
                     CUESTIONARIO_CREADO={
