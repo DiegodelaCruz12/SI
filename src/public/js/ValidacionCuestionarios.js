@@ -2,8 +2,7 @@ const formulario=document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
 
 const expresiones={
-    texto: /[A-Za-z0-9¿¡."][A-Za-z0-9!?\?."]{4,130}$/
-    //texto:/^[a-zA-Z0-9\_\-]{4,16}$/
+    texto: /^[a-zA-Z0-9\_\-\s]{4,150}$/,
 }
 const Validar=(expresiones,input,campo)=>{
     if(expresiones.test(input.value)){
@@ -50,6 +49,7 @@ const validarFormulario=(e)=>{
 } 
 
 inputs.forEach((input) => {
+    
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
 });
@@ -60,4 +60,13 @@ function validateForm(){
 }else{
     return false
 }
+
 }
+//
+id=0;
+function activar(){
+    const formulario=document.getElementById('formulario');
+    const inputs = document.querySelectorAll('#formulario input');
+    }    
+function Delete(id){
+      }
